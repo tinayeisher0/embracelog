@@ -107,190 +107,144 @@ def inject_watchdog(seconds: int):
 
 
 
+
 def load_css():
-    st.markdown(
-        '''
+    st.markdown("""
         <style>
+        :root{
+            --bg-1:#07111f;
+            --bg-2:#0b1728;
+            --panel:#0f1b2d;
+            --border:#223550;
+            --text:#ecf3ff;
+            --muted:#b7c5d9;
+            --input-bg:#ffffff;
+            --input-text:#111111;
+            --accent:#ff7a3a;
+            --accent-2:#ff6430;
+        }
+        html, body, [class*="css"] { font-family: Inter, Segoe UI, Arial, sans-serif !important; }
         [data-testid="stSidebar"], [data-testid="collapsedControl"] {display:none !important;}
         header {visibility:hidden;}
-        .block-container {max-width: 980px; padding-top: 0.55rem; padding-bottom: 1.6rem;}
         .stApp {
-            background: linear-gradient(180deg, #fbfbfb 0%, #f7f7f7 100%);
+            background:
+                radial-gradient(circle at top right, rgba(255,122,58,0.10), transparent 30%),
+                radial-gradient(circle at bottom left, rgba(34,197,94,0.08), transparent 28%),
+                linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%) !important;
+            color: var(--text) !important;
         }
+        .main .block-container {
+            max-width: 980px;
+            padding-top: 0.35rem;
+            padding-bottom: 0.75rem;
+            min-height: 100vh;
+        }
+        section.main > div {padding-top:0 !important;}
         .panel, .glass, .hero-box {
-            background: rgba(255,255,255,0.97);
-            border: 1px solid #ececec;
+            background: linear-gradient(180deg, rgba(19,35,58,0.96), rgba(15,27,45,0.96)) !important;
+            border: 1px solid var(--border) !important;
             border-radius: 28px;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.06);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.28);
         }
-        .panel {padding: 1rem 1rem 0.95rem 1rem;}
-        .hero-box {padding: 1.1rem;}
-        .compact-title {font-size: 1.35rem; font-weight: 800; color: #222; margin-bottom: 0.2rem; text-align:center;}
-        .muted {color:#707070; text-align:center; font-size:0.96rem;}
-        .logo-zone {display:flex; justify-content:center; align-items:center; width:100%; margin: 0.45rem 0 0.7rem 0;}
-        .logo-zone img {display:block; margin:0 auto; object-fit:contain;}
+        .panel {padding: 0.9rem 0.95rem 0.85rem 0.95rem;}
+        .hero-box {padding: 1rem;}
+        .compact-title {font-size: 1.35rem; font-weight: 800; color: var(--text) !important; margin-bottom: 0.15rem; text-align:center;}
+        .muted {color: var(--muted) !important; text-align:center; font-size:0.96rem;}
+        .logo-zone {display:flex; justify-content:center; align-items:center; width:100%; margin: 0.25rem 0 0.45rem 0;}
+        .logo-zone img {display:block; margin:0 auto; object-fit:contain; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.22));}
         .banner {
-            border-radius: 28px;
-            padding: 1.25rem 1rem;
-            color: white;
-            text-align: center;
-            font-weight: 900;
-            font-size: 1.8rem;
-            line-height: 1.2;
-            margin: 0.6rem 0 0.8rem 0;
-            box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+            border-radius: 28px; padding: 1.2rem 1rem; color: #ffffff !important; text-align: center;
+            font-weight: 900; font-size: 1.75rem; line-height: 1.2; margin: 0.45rem 0 0.6rem 0;
+            box-shadow: 0 14px 32px rgba(0,0,0,0.20);
         }
-        .banner-sub {
-            margin-top: 0.6rem;
-            font-size: 1rem;
-            font-weight: 700;
-            opacity: 0.98;
-        }
+        .banner-sub {margin-top: 0.55rem; font-size: 1rem; font-weight: 700; opacity: 0.98; color:#ffffff !important;}
         .message-card {
-            border-radius: 26px;
-            padding: 1.4rem 1.15rem;
-            text-align:center;
-            font-weight:800;
-            font-size:1.55rem;
-            margin: 0.8rem 0 0.9rem 0;
-            box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+            border-radius: 24px; padding: 1.25rem 1rem; text-align:center; font-weight:800; font-size:1.45rem;
+            margin: 0.55rem 0 0.75rem 0; box-shadow: 0 12px 26px rgba(0,0,0,0.16);
         }
-        .message-card p {font-size: 1.02rem; font-weight: 600; margin-top: 0.45rem;}
+        .message-card p {font-size: 1rem; font-weight: 600; margin-top: 0.45rem; color:#ffffff !important;}
         .msg-red {background: linear-gradient(180deg, #ef4444, #b91c1c); color:white;}
         .msg-green {background: linear-gradient(180deg, #22c55e, #15803d); color:white;}
         .msg-orange {background: linear-gradient(180deg, #fb923c, #ea580c); color:white;}
         .kiosk-btn button {
-            min-height: 74px !important;
-            border-radius: 999px !important;
-            background: linear-gradient(180deg, #ff7a3a, #ff6430) !important;
-            border: 0 !important;
-            color: #ffffff !important;
-            font-size: 1.12rem !important;
-            font-weight: 800 !important;
-            box-shadow: 0 10px 25px rgba(255,100,48,0.28) !important;
-            opacity: 1 !important;
-            -webkit-text-fill-color: #ffffff !important;
-            text-shadow: none !important;
+            min-height: 68px !important; border-radius: 20px !important;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2)) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important; color: #ffffff !important;
+            font-size: 1.08rem !important; font-weight: 800 !important;
+            box-shadow: 0 10px 24px rgba(255,100,48,0.25) !important;
+            opacity: 1 !important; -webkit-text-fill-color: #ffffff !important;
+            text-shadow: none !important; white-space: normal !important;
         }
-        .kiosk-btn button *,
-        .stButton button *,
-        .soft-btn button *,
-        button[kind=primary] *,
-        button[kind=secondary] * {
-            color:#ffffff !important;
-            opacity:1 !important;
-            visibility:visible !important;
-            -webkit-text-fill-color:#ffffff !important;
+        .kiosk-btn button:hover {filter: brightness(1.03) !important;}
+        .kiosk-btn button p, .kiosk-btn button span, .kiosk-btn button div, .kiosk-btn button label,
+        .stButton button p, .stButton button span, .stButton button div, .stButton button label,
+        .soft-btn button p, .soft-btn button span, .soft-btn button div, .soft-btn button label,
+        button[kind=primary] p, button[kind=primary] span, button[kind=primary] div, button[kind=primary] label,
+        button[kind=secondary] p, button[kind=secondary] span, button[kind=secondary] div, button[kind=secondary] label,
+        .stDownloadButton button p, .stDownloadButton button span, .stDownloadButton button div, .stDownloadButton button label {
+            color:#ffffff !important; opacity:1 !important; visibility:visible !important; -webkit-text-fill-color:#ffffff !important;
         }
         .stButton button, .soft-btn button, button[kind=primary], button[kind=secondary], .stDownloadButton button {
-            color:#ffffff !important;
-            opacity:1 !important;
-            visibility:visible !important;
-            -webkit-text-fill-color:#ffffff !important;
-            text-shadow:none !important;
+            color:#ffffff !important; opacity:1 !important; visibility:visible !important; -webkit-text-fill-color:#ffffff !important;
+            text-shadow:none !important; border-radius: 16px !important; min-height: 50px !important; font-weight: 700 !important;
         }
-        .stButton button p, .soft-btn button p, button[kind=primary] p, button[kind=secondary] p, .stDownloadButton button p,
-        .stButton button span, .soft-btn button span, button[kind=primary] span, button[kind=secondary] span, .stDownloadButton button span,
-        .stButton button div, .soft-btn button div, button[kind=primary] div, button[kind=secondary] div, .stDownloadButton button div {
-            color:#ffffff !important;
-            opacity:1 !important;
-            visibility:visible !important;
-            -webkit-text-fill-color:#ffffff !important;
-        }
-        .soft-btn button {
-            border-radius: 18px !important;
-            min-height: 52px !important;
-            font-weight: 700 !important;
-        }
-        .stTextInput input, .stSelectbox div[data-baseweb="select"] > div, .stTextArea textarea {
-            border-radius: 16px !important;
-            min-height: 52px;
-            color: #111111 !important;
-            background: #ffffff !important;
-        }
-        /* Force dropdown menus and selected values to stay visible on dark backgrounds */
-        .stSelectbox div[data-baseweb="select"] > div,
-        .stSelectbox div[data-baseweb="select"] > div * {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-            opacity: 1 !important;
-        }
-        .stSelectbox div[data-baseweb="select"] > div {
-            background: linear-gradient(180deg, #0f172a, #020617) !important;
-            border: 1px solid #111827 !important;
-        }
-        .stSelectbox svg {
-            fill: #ffffff !important;
-        }
-        div[role="listbox"],
-        ul[role="listbox"] {
-            background: #020617 !important;
-            color: #ffffff !important;
-        }
-        div[role="option"],
-        ul[role="listbox"] li,
-        [data-baseweb="popover"] li,
-        [data-baseweb="menu"] li,
-        [role="option"] {
-            color: #ffffff !important;
-            background: #020617 !important;
-            -webkit-text-fill-color: #ffffff !important;
-            opacity: 1 !important;
-        }
-        div[role="option"]:hover,
-        ul[role="listbox"] li:hover,
-        [data-baseweb="popover"] li:hover,
-        [data-baseweb="menu"] li:hover,
-        [role="option"]:hover {
-            background: #1e293b !important;
-            color: #ffffff !important;
+        .soft-btn button {background: linear-gradient(180deg, #1a2940, #122238) !important; border:1px solid var(--border) !important;}
+        .stTextInput input, .stTextArea textarea, .stNumberInput input, .stDateInput input, .stTimeInput input {
+            border-radius: 16px !important; min-height: 50px !important; color: var(--input-text) !important;
+            background: var(--input-bg) !important; -webkit-text-fill-color: var(--input-text) !important;
         }
         .stTextInput input::placeholder, .stTextArea textarea::placeholder {
-            color: #6b7280 !important;
-            opacity: 1 !important;
+            color: #6b7280 !important; opacity: 1 !important; -webkit-text-fill-color:#6b7280 !important;
         }
-        .stSelectbox div[data-baseweb="select"] span,
-        .stTextInput label,
-        .stTextArea label,
-        .stSelectbox label,
-        .stDateInput label,
-        .stTimeInput label,
-        .stFileUploader label,
-        .stCheckbox label,
-        .stRadio label,
-        .stNumberInput label,
-        .stMultiSelect label,
-        .stMarkdown,
-        p, li, h1, h2, h3, h4, h5, h6 {
-            color: #111111 !important;
+        .stTextInput label, .stTextArea label, .stSelectbox label, .stDateInput label, .stTimeInput label,
+        .stFileUploader label, .stCheckbox label, .stRadio label, .stNumberInput label, .stMultiSelect label,
+        .stMarkdown, h1, h2, h3, h4, h5, h6, p, li, small, label {
+            color: var(--text) !important;
         }
-        .stTabs [data-baseweb="tab-list"] {
-            gap: 0.35rem;
+        .small-note {text-align:center; color:var(--muted) !important; font-size:0.86rem;}
+        .stSelectbox div[data-baseweb="select"] > div, .stMultiSelect div[data-baseweb="select"] > div {
+            min-height: 50px !important; border-radius: 16px !important;
+            background: linear-gradient(180deg, #101a2c, #0a1220) !important;
+            border: 1px solid var(--border) !important;
         }
+        .stSelectbox div[data-baseweb="select"] > div *, .stMultiSelect div[data-baseweb="select"] > div * {
+            color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; opacity: 1 !important;
+        }
+        .stSelectbox svg, .stMultiSelect svg {fill:#ffffff !important;}
+        div[role="listbox"], ul[role="listbox"], [data-baseweb="popover"] {
+            background: #0a1220 !important; color: #ffffff !important; border:1px solid var(--border) !important;
+        }
+        div[role="option"], ul[role="listbox"] li, [data-baseweb="popover"] li, [data-baseweb="menu"] li, [role="option"] {
+            color: #ffffff !important; background: #0a1220 !important; -webkit-text-fill-color: #ffffff !important; opacity: 1 !important;
+        }
+        div[role="option"]:hover, ul[role="listbox"] li:hover, [data-baseweb="popover"] li:hover, [data-baseweb="menu"] li:hover, [role="option"]:hover {
+            background: #17263e !important; color: #ffffff !important;
+        }
+        .stTabs [data-baseweb="tab-list"] {gap: 0.35rem;}
         .stTabs [data-baseweb="tab"] {
-            color: #111111 !important;
-            background: #f3f4f6 !important;
-            border-radius: 14px 14px 0 0 !important;
-            font-weight: 700 !important;
-            border-bottom: 3px solid transparent !important;
+            color: var(--muted) !important; background: #101b2e !important; border: 1px solid var(--border) !important;
+            border-radius: 14px 14px 0 0 !important; font-weight: 700 !important; border-bottom: 3px solid transparent !important;
         }
         .stTabs [aria-selected="true"] {
-            color: #ea580c !important;
-            background: #ffffff !important;
-            border-bottom: 3px solid #ea580c !important;
+            color: #ffffff !important; background: #182a44 !important; border-bottom: 3px solid var(--accent) !important;
         }
-        .stFileUploader section {
-            border-radius: 18px !important;
+        .stFileUploader section, .gallery-manager-card {
+            background: linear-gradient(180deg, rgba(19,35,58,0.96), rgba(15,27,45,0.96)) !important;
+            border:1px solid var(--border) !important; border-radius:22px !important; box-shadow:0 8px 22px rgba(0,0,0,0.12);
         }
-        .small-note {text-align:center; color:#8c8c8c; font-size:0.86rem;}
-        .gallery-manager-card {background:#fff; border:1px solid #ececec; border-radius:22px; padding:0.75rem; box-shadow:0 8px 22px rgba(0,0,0,0.05);}
-        .gallery-label {font-size:0.9rem; font-weight:700; color:#111; text-align:center; margin-top:0.35rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-        .gallery-help {color:#525252; font-size:0.92rem; margin-bottom:0.45rem;}
+        .gallery-label {font-size:0.9rem; font-weight:700; color:var(--text) !important; text-align:center; margin-top:0.35rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+        .gallery-help {color:var(--muted) !important; font-size:0.92rem; margin-bottom:0.45rem;}
+        [data-testid="stImage"] img {border-radius: 18px;}
+        @media (max-height: 900px) {
+            .main .block-container {padding-top:0.25rem; padding-bottom:0.5rem;}
+            .logo-zone {margin: 0.2rem 0 0.35rem 0;}
+            .kiosk-btn button {min-height:62px !important; font-size:1rem !important;}
+            .banner {font-size:1.55rem; padding:1rem 0.9rem;}
+        }
         </style>
-        ''',
+        """,
         unsafe_allow_html=True,
     )
-
 
 
 def image_to_data_uri(path: Path) -> str:
@@ -314,24 +268,55 @@ def get_gallery_files():
 
 
 
+
 def render_idle_gallery():
     files = get_gallery_files()
     if not files:
         return
     uris = [image_to_data_uri(p) for p in files[:8]]
-    slides = ''.join(
-        [f"<div class='slide' style=\"background-image:url({uri})\"></div>" for uri in uris]
-    )
-    dots = ''.join([f"<span class='dot'></span>" for _ in uris])
+    slides = ''.join([f'<div class="slide" style="background-image:url({uri})"></div>' for uri in uris])
+    dots = ''.join(["<span class='dot'></span>" for _ in uris])
+    duration = max(12, len(uris) * 5)
+    delays = ''.join([f'.slide:nth-child({i+1})' + '{animation-delay:' + str(i*5) + 's;}' for i in range(len(uris))])
     html = f"""
     <style>
-    .gallery-wrap {{ position: relative; height: 320px; border-radius: 24px; overflow: hidden; background:#d8d8d8; box-shadow:0 12px 28px rgba(0,0,0,0.10); }}
-    .slide {{ position:absolute; inset:0; background-size:contain; background-repeat:no-repeat; background-position:center center; opacity:0; animation:fadeGallery {max(12, len(uris)*5)}s infinite; }}
-    {''.join([f'.slide:nth-child({i+1})' + '{animation-delay:' + str(i*5) + 's;}' for i in range(len(uris))])}
-    @keyframes fadeGallery {{ 0% {{opacity:0; transform:scale(1.02);}} 8% {{opacity:1;}} 26% {{opacity:1;}} 34% {{opacity:0;}} 100% {{opacity:0; transform:scale(1.08);}} }}
-    .gallery-overlay {{ position:absolute; inset:auto 0 0 0; padding:12px 16px; background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.52)); color:white; font-size:14px; font-weight:700; text-align:center; }}
-    .dots {{ position:absolute; bottom:46px; width:100%; text-align:center; }}
-    .dot {{ height:7px; width:7px; margin:0 4px; display:inline-block; border-radius:50%; background:rgba(255,255,255,0.8); }}
+    .gallery-wrap {{
+        position: relative;
+        width: 100%;
+        height: min(34vh, 290px);
+        min-height: 210px;
+        border-radius: 26px;
+        overflow: hidden;
+        background: #0b1322;
+        box-shadow: 0 16px 32px rgba(0,0,0,0.25);
+        border: 1px solid rgba(255,255,255,0.06);
+    }}
+    .slide {{
+        position:absolute; inset:0;
+        background-size: cover;
+        background-repeat:no-repeat;
+        background-position:center center;
+        opacity:0;
+        animation:fadeGallery {duration}s infinite;
+    }}
+    {delays}
+    @keyframes fadeGallery {{
+        0% {{opacity:0; transform:scale(1.02);}}
+        8% {{opacity:1;}}
+        26% {{opacity:1;}}
+        34% {{opacity:0;}}
+        100% {{opacity:0; transform:scale(1.06);}}
+    }}
+    .gallery-overlay {{
+        position:absolute; inset:auto 0 0 0;
+        padding:14px 16px;
+        background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.60));
+        color:white; font-size:14px; font-weight:700; text-align:center;
+        letter-spacing:0.02em;
+    }}
+    .dots {{ position:absolute; bottom:48px; width:100%; text-align:center; }}
+    .dot {{ height:7px; width:7px; margin:0 4px; display:inline-block; border-radius:50%; background:rgba(255,255,255,0.85); }}
+    html, body {{ margin:0; padding:0; overflow:hidden; background:transparent; }}
     </style>
     <div class="gallery-wrap">
       {slides}
@@ -339,8 +324,7 @@ def render_idle_gallery():
       <div class="gallery-overlay">Welcome to Embrace Healthcare Solutions</div>
     </div>
     """
-    components.html(html, height=320)
-
+    components.html(html, height=300)
 
 
 def save_uploaded_file(uploaded_file, target_dir: Path):
